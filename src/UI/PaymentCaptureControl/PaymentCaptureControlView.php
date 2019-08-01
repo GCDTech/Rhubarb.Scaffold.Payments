@@ -7,6 +7,11 @@ use Rhubarb\Leaf\Views\View;
 
 class PaymentCaptureControlView extends View
 {
+    /**
+     * @var PaymentCaptureControlModel
+     */
+    protected $model;
+
     public function getDeploymentPackage()
     {
         return new LeafDeploymentPackage(__DIR__.'/PaymentCaptureControlViewBridge.js');
