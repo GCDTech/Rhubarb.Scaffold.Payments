@@ -5,8 +5,8 @@
   "license": "proprietary",
   "autoload": {
     "psr-4": {
-      "Gcd\\Payments\\": "src/",
-      "Gcd\\Payments\\Tests\\": "tests/"
+      "Gcd\\Scaffold\\Payments\\": "src/",
+      "Gcd\\Scaffold\\Payments\\Tests\\": "tests/"
     }
   },  
   "require": {
