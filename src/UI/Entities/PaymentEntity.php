@@ -2,8 +2,12 @@
 
 namespace Gcd\Scaffold\Payments\UI\Entities;
 
+use Gcd\Scaffold\Logic\Entities\CastableEntityTrait;
+
 class PaymentEntity
 {
+    use CastableEntityTrait;
+
     const STATUS_CREATED = "Created";
     const STATUS_SUCCESS = "Success";
     const STATUS_FAILED = "Failed";
@@ -22,7 +26,12 @@ class PaymentEntity
     /**
      * @var string The status of the payment
      */
-    public $status;
+    public $status = self::STATUS_CREATED;
+
+    /**
+     * @var bool True if you want the payment to auto settle or remain only authorised.
+     */
+    public $autoSettle = true;
 
     public $amount;
 

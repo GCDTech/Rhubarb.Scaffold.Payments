@@ -12,8 +12,20 @@ class PaymentCaptureControlModel extends LeafModel
      */
     public $confirmPaymentEvent;
 
+    public $paymentEntity;
+
     public function __construct()
     {
         $this->confirmPaymentEvent = new Event();
     }
+
+    protected function getExposableModelProperties()
+    {
+        $list = parent::getExposableModelProperties();
+        $list[] = "paymentEntity";
+
+        return $list;
+    }
+
+
 }
