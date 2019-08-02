@@ -69,11 +69,18 @@ rhubarb.vb.create('PaymentCaptureControlViewBridge', function() {
             this.raiseClientEvent('AuthenticationRequired', paymentEntity);
 
             return new Promise(function(resolve, reject) {
-                this.authenticatePayment(paymentEntity).then(
-                    function () {
-                        this.attemptPayment(paymentEntity).then(resolve, reject);
-                    }.bind(this), reject
-                );
+                if (paymentEntity.onSession) {
+                    this.authenticatePayment(paymentEntity).then(
+                        function () {
+                            this.attemptPayment(paymentEntity).then(resolve, reject);
+                        }.bind(this), reject
+                    );
+                } else {
+                    // As this is an off-session payment the customer is not available to
+                    // continue the journey. We reject the promise, and depend on the caller
+                    // to inspect the payment entity to realise it's not a failure.
+                    reject(paymentEntity);
+                }
             }.bind(this));
         },
 
