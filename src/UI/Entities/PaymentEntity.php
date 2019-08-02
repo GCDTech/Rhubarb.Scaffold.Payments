@@ -13,15 +13,19 @@ class PaymentEntity
     const STATUS_FAILED = "Failed";
     const STATUS_AWAITING_SCA = "Awaiting SCA";
 
+    const TYPE_TOKEN = "Token";
+    const TYPE_CARD = "Card";
+    const TYPE_CUSTOMER = "Customer";
+
     /**
      * @var string The unique identifier for this payment with the provider
      */
     public $providerIdentifier;
 
     /**
-     * @var string The type of identifier for this payment i.e. Card, Customer
+     * @var string The type of identifier for this payment i.e. Token, Card, Customer
      */
-    public $providerPublicIdentifierType;
+    public $providerPublicIdentifierType = self::TYPE_TOKEN;
 
     /**
      * @var string Some providers give an identifier for use in SCA completion journeys
@@ -44,7 +48,17 @@ class PaymentEntity
 
     public $description;
 
-    public $billingAddress;
+    public $fullName;
+
+    public $addressLine1;
+
+    public $addressLine2;
+
+    public $addressCity;
+
+    public $addressPostCode;
+
+    public $phone;
 
     public $emailAddress;
 
