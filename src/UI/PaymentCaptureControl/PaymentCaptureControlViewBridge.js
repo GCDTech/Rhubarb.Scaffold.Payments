@@ -47,7 +47,7 @@ rhubarb.vb.create('PaymentCaptureControlViewBridge', function() {
                         break;
                     case 'Failed':
                         this.onPaymentFailed(paymentEntity);
-                        resolve();
+                        reject(paymentEntity);
                         break;
                     case 'Awaiting Authentication':
                         this.onAuthenticationRequired(paymentEntity).then(resolve, reject);
