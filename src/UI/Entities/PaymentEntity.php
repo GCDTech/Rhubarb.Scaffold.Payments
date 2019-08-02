@@ -23,6 +23,11 @@ class PaymentEntity
     public $providerIdentifier;
 
     /**
+     * @var string The unique identifier for the payment method being used on this payment
+     */
+    public $providerPaymentMethodIdentifier;
+
+    /**
      * @var string The type of identifier for this payment i.e. Token, Card, Customer
      */
     public $providerPublicIdentifierType = self::TYPE_TOKEN;

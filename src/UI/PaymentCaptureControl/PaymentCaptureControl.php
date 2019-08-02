@@ -25,9 +25,9 @@ abstract class PaymentCaptureControl extends Leaf
      */
     public $paymentFailedEvent;
 
-    public function __construct($name = null)
+    public function __construct($name = null, callable $initialiseModelBeforeView = null)
     {
-        parent::__construct($name);
+        parent::__construct($name, $initialiseModelBeforeView);
 
         $this->paymentConfirmedEvent = new Event();
         $this->paymentFailedEvent = new Event();
