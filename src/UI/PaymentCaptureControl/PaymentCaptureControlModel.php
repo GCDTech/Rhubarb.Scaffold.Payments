@@ -14,6 +14,11 @@ class PaymentCaptureControlModel extends LeafModel
 
     public $paymentEntity;
 
+    /**
+     * @var bool True if the customer is driving the UI and can respond to SCA
+     */
+    public $onSession = true;
+
     public function __construct()
     {
         $this->confirmPaymentEvent = new Event();
@@ -23,6 +28,7 @@ class PaymentCaptureControlModel extends LeafModel
     {
         $list = parent::getExposableModelProperties();
         $list[] = "paymentEntity";
+        $list[] = "onSession";
 
         return $list;
     }

@@ -11,7 +11,7 @@ class PaymentEntity
     const STATUS_CREATED = "Created";
     const STATUS_SUCCESS = "Success";
     const STATUS_FAILED = "Failed";
-    const STATUS_AWAITING_SCA = "Awaiting SCA";
+    const STATUS_AWAITING_AUTHENTICATION = "Awaiting Authentication";
 
     const TYPE_TOKEN = "Token";
     const TYPE_CARD = "Card";
@@ -46,6 +46,11 @@ class PaymentEntity
      * @var bool True if you want the payment to auto settle or remain only authorised.
      */
     public $autoSettle = true;
+
+    /**
+     * @var bool True if the customer is driving the UI and can respond to SCA challenges.
+     */
+    public $onSession = true;
 
     public $amount;
 

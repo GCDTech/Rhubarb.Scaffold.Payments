@@ -25,9 +25,21 @@ abstract class PaymentCaptureControl extends Leaf
      */
     public $paymentFailedEvent;
 
-    public function __construct($name = null, callable $initialiseModelBeforeView = null)
+    /**
+     * PaymentCaptureControl constructor.
+     * @param null $name
+     * @param bool $onSession True if the journey being developed is expected to be driven by the customer.
+     * @param callable|null $initialiseModelBeforeView
+     * @throws \Rhubarb\Leaf\Exceptions\InvalidLeafModelException
+     */
+    public function __construct($name = null, $onSession = true, callable $initialiseModelBeforeView = null)
     {
-        parent::__construct($name, $initialiseModelBeforeView);
+        parent::__construct($name, function() use ($initialiseModelBeforeView, $onSession){
+            if ($initialiseModelBeforeView){
+                $initialiseModelBeforeView();
+            }
+            $this->model->onSession = $onSession;
+        });
 
         $this->paymentConfirmedEvent = new Event();
         $this->paymentFailedEvent = new Event();
@@ -64,9 +76,12 @@ abstract class PaymentCaptureControl extends Leaf
         });
     }
 
-    protected function confirmPayment($paymentEntity):  PaymentEntity
+    protected function confirmPayment(PaymentEntity $paymentEntity):  PaymentEntity
     {
         $service = $this->getProviderService();
+
+        // Make sure that onSession is set correctly.
+        $paymentEntity->onSession = $this->model->onSession;
 
         // Create the use case:
         ConfirmPaymentUseCase::create($service)->execute($paymentEntity);

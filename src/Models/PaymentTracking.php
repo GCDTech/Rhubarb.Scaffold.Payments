@@ -15,7 +15,7 @@ class PaymentTracking extends Model
 {
     const STATUS_CREATED = 'Created';
     const STATUS_PENDING = 'Pending';
-    const STATUS_AWAITING_SCA = 'Awaiting SCA';
+    const STATUS_AWAITING_SCA = 'Awaiting Authentication';
     const STATUS_SUCCESS = 'Success';
     const STATUS_FAILED = 'Failed';
     
