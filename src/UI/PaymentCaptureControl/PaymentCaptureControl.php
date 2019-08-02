@@ -68,7 +68,7 @@ abstract class PaymentCaptureControl extends Leaf
         $service = $this->getProviderService();
 
         // Create the use case:
-        ConfirmPaymentUseCase::create($service)->executy($paymentEntity);
+        //ConfirmPaymentUseCase::create($service)->executy($paymentEntity);
 
         if ($paymentEntity->status == PaymentEntity::STATUS_SUCCESS){
             $this->paymentConfirmedEvent->raise($paymentEntity);

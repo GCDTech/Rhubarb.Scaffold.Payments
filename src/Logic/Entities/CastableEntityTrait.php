@@ -1,6 +1,6 @@
 <?php
 
-namespace Gcd\Scaffold\Logic\Entities;
+namespace Gcd\Scaffold\Payments\Logic\Entities;
 
 trait CastableEntityTrait
 {

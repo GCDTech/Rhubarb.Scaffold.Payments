@@ -2,7 +2,7 @@
 
 namespace Gcd\Scaffold\Payments\UI\Entities;
 
-use Gcd\Scaffold\Logic\Entities\CastableEntityTrait;
+use Gcd\Scaffold\Payments\Logic\Entities\CastableEntityTrait;
 
 class PaymentEntity
 {
