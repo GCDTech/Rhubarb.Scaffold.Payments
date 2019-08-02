@@ -11,7 +11,7 @@ class PaymentEntity
     const STATUS_CREATED = "Created";
     const STATUS_SUCCESS = "Success";
     const STATUS_FAILED = "Failed";
-    const STATUS_AWAITING_SCA = "Failed";
+    const STATUS_AWAITING_SCA = "Awaiting SCA";
 
     /**
      * @var string The unique identifier for this payment with the provider
@@ -19,7 +19,12 @@ class PaymentEntity
     public $providerIdentifier;
 
     /**
-     * @var string Some providers give an identifier for use in SCA completion journies
+     * @var string The type of identifier for this payment i.e. Card, Customer
+     */
+    public $providerPublicIdentifierType;
+
+    /**
+     * @var string Some providers give an identifier for use in SCA completion journeys
      */
     public $providerPublicIdentifier;
 
@@ -40,4 +45,12 @@ class PaymentEntity
     public $description;
 
     public $billingAddress;
+
+    public $emailAddress;
+
+    public $cardType;
+
+    public $cardLastFourDigits;
+
+    public $cardExpiry;
 }

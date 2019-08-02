@@ -5,8 +5,11 @@ namespace Gcd\Scaffold\Payments\Models;
 use Rhubarb\Stem\Models\Model;
 use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlEnumColumn;
 use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlMediumTextColumn;
+use Rhubarb\Stem\Schema\Columns\AutoIncrementColumn;
+use Rhubarb\Stem\Schema\Columns\DateTimeColumn;
 use Rhubarb\Stem\Schema\Columns\MoneyColumn;
 use Rhubarb\Stem\Schema\Columns\StringColumn;
+use Rhubarb\Stem\Schema\ModelSchema;
 
 class PaymentTracking extends Model
 {
@@ -26,7 +29,7 @@ class PaymentTracking extends Model
             new StringColumn("PaymentDescription", 250),
             new StringColumn("EmailAddress", 150),
             new MySqlEnumColumn("Status", self::STATUS_CREATED, 
-                [self::STATUS_CREATED, self::STATUS_PENDING, self::STATUS_AWAITING_SCA, self::STATUS_SUCCESS, self::STATUS_FAILED]),
+                [self::STATUS_CREATED, self::STATUS_AWAITING_SCA, self::STATUS_SUCCESS, self::STATUS_FAILED]),
             new MoneyColumn("Amount"),
             new StringColumn("Currency", 3),
             new StringColumn("CardType", 50),
