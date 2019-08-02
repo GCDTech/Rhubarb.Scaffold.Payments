@@ -18,7 +18,7 @@ class ConfirmPaymentUseCase extends UseCase
 
     public function execute(PaymentEntity $paymentEntity) {
 
-        if (isset($paymentEntity->providerPublicIdentifier)) {
+        if (!isset($paymentEntity->providerIdentifier)) {
             // We are only beginning the payment journey so we need to create our payment.
             $paymentEntity = $this->paymentService->startPayment($paymentEntity);
         }

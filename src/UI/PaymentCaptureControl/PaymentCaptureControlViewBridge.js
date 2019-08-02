@@ -69,11 +69,11 @@ rhubarb.vb.create('PaymentCaptureControlViewBridge', function() {
             this.raiseClientEvent('AuthenticationRequired', paymentEntity);
 
             return new Promise(function(resolve, reject) {
-                this.authenticatePayment().then(
+                this.authenticatePayment(paymentEntity).then(
                     function () {
                         this.attemptPayment(paymentEntity).then(resolve, reject);
                     }.bind(this), reject
-                ).bind(this);;
+                );
             }.bind(this));
         },
 
