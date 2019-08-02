@@ -14,6 +14,7 @@
     "rhubarbphp/module-stem": "^1.5.6",
     "rhubarbphp/module-leaf": "^1.0.0",
     "rhubarbphp/module-leaf-common-controls": "^1.0.0",
+    "gcdtech/usecases": "^1.0.0",
     "rhubarbphp/scaffold-communications": "^1.0.0"
   }
 }
