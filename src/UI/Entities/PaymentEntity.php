@@ -22,6 +22,8 @@ class PaymentEntity implements \JsonSerializable
      */
     public $providerIdentifier;
 
+    public $provider;
+
     /**
      * @var string The unique identifier for the payment method being used on this payment
      */
@@ -30,7 +32,7 @@ class PaymentEntity implements \JsonSerializable
     /**
      * @var string The type of identifier for this payment i.e. Token, Card, Customer
      */
-    public $providerPublicIdentifierType = self::TYPE_TOKEN;
+    public $providerPaymentMethodType = self::TYPE_TOKEN;
 
     /**
      * @var string Some providers give an identifier for use in SCA completion journeys
