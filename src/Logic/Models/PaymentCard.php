@@ -1,6 +1,6 @@
 <?php
 
-namespace Gcd\Scaffold\Payments\Models;
+namespace Gcd\Scaffold\Payments\Logic\Models;
 
 use Rhubarb\Stem\Models\Model;
 use Rhubarb\Stem\Schema\Columns\AutoIncrementColumn;

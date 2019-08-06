@@ -1,6 +1,6 @@
 <?php
 
-namespace Gcd\Scaffold\Payments\Models;
+namespace Gcd\Scaffold\Payments\Logic\Models;
 
 use Gcd\Scaffold\Payments\Logic\Entities\ModelEntityMapping;
 use Gcd\Scaffold\Payments\UI\Entities\PaymentEntity;
@@ -12,6 +12,7 @@ use Rhubarb\Stem\Schema\Columns\AutoIncrementColumn;
 use Rhubarb\Stem\Schema\Columns\DateTimeColumn;
 use Rhubarb\Stem\Schema\Columns\MoneyColumn;
 use Rhubarb\Stem\Schema\Columns\StringColumn;
+use Rhubarb\Stem\Schema\Columns\UUIDColumn;
 use Rhubarb\Stem\Schema\ModelSchema;
 
 class PaymentTracking extends Model
@@ -33,11 +34,10 @@ class PaymentTracking extends Model
         $schema = new ModelSchema("tblPaymentTracking");
 
         $schema->addColumn(
-            new AutoIncrementColumn("PaymentTrackingID"),
+            new UUIDColumn("PaymentTrackingID"),
             new StringColumn("Provider", 50),
             new StringColumn("Description", 250),
             new StringColumn("ProviderIdentifier", 150),
-            new StringColumn("ProviderPublicIdentifier", 150),
             new StringColumn("ProviderPaymentMethodIdentifier", 150),
             new StringColumn("ProviderPaymentMethodType", 50),
             new StringColumn("EmailAddress", 150),
@@ -76,6 +76,15 @@ class PaymentTracking extends Model
         $paymentTracking = new PaymentTracking();
         $paymentTracking->setModelFromEntity($entity);
         return $paymentTracking;
+    }
+
+    public function toEntity(): PaymentEntity
+    {
+        $entity = new PaymentEntity();
+
+        $this->setEntityFromModel($entity);
+
+        return $entity;
     }
 
     protected function getEntityModelPropertyMap(): array

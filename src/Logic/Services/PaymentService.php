@@ -1,6 +1,6 @@
 <?php
 
-namespace Gcd\Scaffold\Payments\Services;
+namespace Gcd\Scaffold\Payments\Logic\Services;
 
 use Gcd\Scaffold\Payments\UI\Entities\PaymentEntity;
 

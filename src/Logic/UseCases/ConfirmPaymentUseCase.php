@@ -1,9 +1,9 @@
 <?php
 
-namespace Gcd\Scaffold\Payments\UseCases;
+namespace Gcd\Scaffold\Payments\Logic\UseCases;
 
-use Gcd\Scaffold\Payments\Models\PaymentTracking;
-use Gcd\Scaffold\Payments\Services\PaymentService;
+use Gcd\Scaffold\Payments\Logic\Models\PaymentTracking;
+use Gcd\Scaffold\Payments\Logic\Services\PaymentService;
 use Gcd\Scaffold\Payments\UI\Entities\PaymentEntity;
 use Gcd\UseCases\UseCase;
 

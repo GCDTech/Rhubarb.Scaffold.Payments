@@ -1,9 +1,9 @@
 <?php
 
-namespace Gcd\Scaffold\Payments\UseCases;
+namespace Gcd\Scaffold\Payments\Logic\UseCases;
 
-use Gcd\Scaffold\Payments\Models\PaymentTracking;
-use Gcd\Scaffold\Payments\Services\SimulatorPaymentService;
+use Gcd\Scaffold\Payments\Logic\Models\PaymentTracking;
+use Gcd\Scaffold\Payments\Logic\Services\SimulatorPaymentService;
 use Gcd\Scaffold\Payments\UI\Entities\PaymentEntity;
 use Rhubarb\Crown\Tests\Fixtures\TestCases\RhubarbTestCase;
 use Rhubarb\Stem\Filters\Equals;

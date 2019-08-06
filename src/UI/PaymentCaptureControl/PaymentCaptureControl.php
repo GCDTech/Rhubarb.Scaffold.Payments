@@ -3,7 +3,7 @@
 namespace Gcd\Scaffold\Payments\UI\PaymentCaptureControl;
 
 use Gcd\Scaffold\Payments\UI\Entities\PaymentEntity;
-use Gcd\Scaffold\Payments\UseCases\ConfirmPaymentUseCase;
+use Gcd\Scaffold\Payments\Logic\UseCases\ConfirmPaymentUseCase;
 use Rhubarb\Crown\Events\Event;
 use Rhubarb\Leaf\Leaves\Leaf;
 use Rhubarb\Leaf\Leaves\LeafModel;

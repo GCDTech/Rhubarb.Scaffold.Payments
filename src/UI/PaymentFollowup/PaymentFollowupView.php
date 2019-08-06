@@ -17,6 +17,12 @@ class PaymentFollowupView extends View
 
     protected function printViewContent()
     {
+        ?>
+        <h1>Continue your payment</h1>
+        <p>A payment authorisation was declined by your bank as they have requested you provide
+        authentication in order to authorise the payment.</p>
+
+        <?php
     }
 
     public function getDeploymentPackage()
