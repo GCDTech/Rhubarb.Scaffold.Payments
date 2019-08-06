@@ -29,6 +29,7 @@ abstract class PaymentCaptureControl extends Leaf
      * PaymentCaptureControl constructor.
      * @param null $name
      * @param bool $onSession True if the journey being developed is expected to be driven by the customer.
+     * @param string $mode
      * @param callable|null $initialiseModelBeforeView
      * @throws \Rhubarb\Leaf\Exceptions\InvalidLeafModelException
      */

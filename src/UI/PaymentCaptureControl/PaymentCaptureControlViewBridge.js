@@ -5,12 +5,18 @@ rhubarb.vb.create('PaymentCaptureControlViewBridge', function() {
         },
 
         /**
+         * setupPaymentMethod should be implemented by provider specific implementations and
+         * should try to capture the payment method and authenticate the customer, ultimately
+         * resolving in success or failure.
+         */
+        setupPaymentMethod: function() {
+
+        },
+
+        /**
          * attemptPayment should be implemented by provider specific implementations and
          * should try to confirm and, if necessary, authenticate the customer, ultimately
-         * resolving in a success, failure or requires customer end point.
-         *
-         * If the payment method hasn't yet been created this should call createPaymentMethod()
-         * as appropriate
+         * resolving in a success, failure or requires SCA end goal.
          */
         attemptPayment: function(paymentEntity) {
 
@@ -28,8 +34,8 @@ rhubarb.vb.create('PaymentCaptureControlViewBridge', function() {
          * onAuthenticationRequired should be called by implementations of the pattern when the
          * provider has created a new payment method.
          */
-        onPaymentMethodCreated: function(paymentEntity){
-
+        onPaymentMethodCreated: function(setupEntity){
+            this.raiseClientEvent('PaymentMethodCreated', setupEntity);
         },
 
         /**
