@@ -15,7 +15,9 @@
     "rhubarbphp/module-leaf": "^1.0.0",
     "rhubarbphp/module-leaf-common-controls": "^1.0.0",
     "gcdtech/usecases": "^1.0.0",
-    "rhubarbphp/scaffold-communications": "^1.0.0",
+    "rhubarbphp/scaffold-communications": "^1.0.0"
+  },
+  "require-dev": {
     "codeception/codeception": "^2.2",
     "codeception/verify": "^0.3.2"
   }
