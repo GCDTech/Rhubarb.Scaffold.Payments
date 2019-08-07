@@ -23,6 +23,7 @@ trait ModelEntityMapping
                 $this->$modelProp = $entity->$entityProp;
             }
         }
+
         if ($entity->id) {
             $this->setUniqueIdentifier($entity->id);
         }
@@ -31,14 +32,16 @@ trait ModelEntityMapping
     public function getEntityColumnFromModelColumn(string $modelColumn): string
     {
         $map = $this->getEntityModelPropertyMap();
-
         $index = array_search($modelColumn, $map);
+
         if ($index === false) {
             if ($modelColumn === $this->getUniqueIdentifierColumnName()) {
                 return 'id';
             }
+
             throw new \Exception('unmapped column');
         }
+
         return $map[$index];
     }
 

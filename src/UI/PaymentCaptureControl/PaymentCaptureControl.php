@@ -3,7 +3,7 @@
 namespace Gcd\Scaffold\Payments\UI\PaymentCaptureControl;
 
 use Gcd\Scaffold\Payments\UI\Entities\PaymentEntity;
-use Gcd\Scaffold\Payments\Logic\UseCases\ConfirmPaymentUseCase;
+use Gcd\Scaffold\Payments\Logic\UseCases\TakePaymentUseCase;
 use Rhubarb\Crown\Events\Event;
 use Rhubarb\Leaf\Leaves\Leaf;
 use Rhubarb\Leaf\Leaves\LeafModel;
@@ -85,7 +85,7 @@ abstract class PaymentCaptureControl extends Leaf
         $paymentEntity->onSession = $this->model->onSession;
 
         // Create the use case:
-        ConfirmPaymentUseCase::create($service)->execute($paymentEntity);
+        TakePaymentUseCase::create($service)->execute($paymentEntity);
 
         if ($paymentEntity->status == PaymentEntity::STATUS_SUCCESS){
             $this->paymentConfirmedEvent->raise($paymentEntity);

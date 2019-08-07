@@ -106,4 +106,4 @@ rhubarb.vb.create('PaymentCaptureControlViewBridge', function() {
             this.raiseClientEvent('PaymentFailed', paymentEntity);
         }
     };
-})
+});

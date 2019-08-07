@@ -3,6 +3,7 @@
 namespace Gcd\Scaffold\Payments\UI\Entities;
 
 use Gcd\Scaffold\Payments\Logic\Entities\CastableEntityTrait;
+use Gcd\Scaffold\Payments\Logic\Services\PaymentService;
 
 class PaymentEntity implements \JsonSerializable
 {
@@ -17,11 +18,16 @@ class PaymentEntity implements \JsonSerializable
     const TYPE_CARD = "Card";
     const TYPE_CUSTOMER = "Customer";
 
+    public $id;
+
     /**
      * @var string The unique identifier for this payment with the provider
      */
     public $providerIdentifier;
 
+    /**
+     * @var string A reference by alias to the service used to process this entity.
+     */
     public $provider;
 
     /**

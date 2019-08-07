@@ -8,8 +8,25 @@ use Gcd\Scaffold\Payments\UI\Entities\PaymentEntity;
 use Rhubarb\Crown\Tests\Fixtures\TestCases\RhubarbTestCase;
 use Rhubarb\Stem\Filters\Equals;
 
-class ConfirmPaymentUseCaseTest extends RhubarbTestCase
+class TakePaymentUseCaseTest extends RhubarbTestCase
 {
+    public function testProviderSet()
+    {
+        $entity = new PaymentEntity();
+        $entity->providerIdentifier = '123';
+        $entity->providerPublicIdentifier = SimulatorPaymentService::SUCCESS_CARD;
+        $entity->fullName = 'John Smith';
+        $entity->emailAddress = 'jsmith@gcdtech.com';
+        $entity->amount = 1000;
+        $entity->currency = 'GBP';
+
+        $entity = TakePaymentUseCase::create(new SimulatorPaymentService())->execute($entity);
+
+        $paymentTracking = PaymentTracking::findLast(new Equals('ProviderIdentifier', $entity->providerIdentifier));
+
+        verify($paymentTracking->Provider)->equals("Simulator");
+    }
+
     public function test_payment_no_auth_needed()
     {
         $entity = new PaymentEntity();
@@ -20,10 +37,10 @@ class ConfirmPaymentUseCaseTest extends RhubarbTestCase
         $entity->amount = 1000;
         $entity->currency = 'GBP';
 
-        $entity = ConfirmPaymentUseCase::create(new SimulatorPaymentService())->execute($entity);
+        $entity = TakePaymentUseCase::create(new SimulatorPaymentService())->execute($entity);
 
         // TODO use card ID here
-        $paymentTracking = PaymentTracking::findLast(new Equals('ProviderPublicIdentifier', $entity->providerPublicIdentifier));
+        $paymentTracking = PaymentTracking::findLast(new Equals('ProviderIdentifier', $entity->providerIdentifier));
         verify($paymentTracking->CardLastFourDigits)->notEmpty();
         verify($paymentTracking->Status)->equals(PaymentTracking::STATUS_SUCCESS);
     }
@@ -38,19 +55,19 @@ class ConfirmPaymentUseCaseTest extends RhubarbTestCase
         $entity->amount = 100;
         $entity->currency = 'GBP';
 
-        $entity = ConfirmPaymentUseCase::create(new SimulatorPaymentService())->execute($entity);
+        $entity = TakePaymentUseCase::create(new SimulatorPaymentService())->execute($entity);
 
         // TODO use card ID here
-        $paymentTracking = PaymentTracking::findLast(new Equals('ProviderPublicIdentifier', $entity->providerPublicIdentifier));
+        $paymentTracking = PaymentTracking::findLast(new Equals('ProviderIdentifier', $entity->providerIdentifier));
         verify($paymentTracking->CardLastFourDigits)->notEmpty();
         verify($paymentTracking->ProviderPublicIdentifier)->notEmpty();
         verify($paymentTracking->Status)->equals(PaymentTracking::STATUS_AWAITING_SCA);
 
         $entity->providerPublicIdentifier = SimulatorPaymentService::SUCCESS_CARD; // TODO use card field
 
-        $entity = ConfirmPaymentUseCase::create(new SimulatorPaymentService())->execute($entity);
+        $entity = TakePaymentUseCase::create(new SimulatorPaymentService())->execute($entity);
 
-        $paymentTracking = PaymentTracking::findLast(new Equals('ProviderPublicIdentifier', $entity->providerPublicIdentifier));
+        $paymentTracking = PaymentTracking::findLast(new Equals('ProviderIdentifier', $entity->providerIdentifier));
         verify($paymentTracking->CardLastFourDigits)->notEmpty();
         verify($paymentTracking->ProviderPublicIdentifier)->notEmpty();
         verify($paymentTracking->Status)->equals(PaymentTracking::STATUS_SUCCESS);
@@ -66,10 +83,10 @@ class ConfirmPaymentUseCaseTest extends RhubarbTestCase
         $entity->amount = 1000;
         $entity->currency = 'GBP';
 
-        $entity = ConfirmPaymentUseCase::create(new SimulatorPaymentService())->execute($entity);
+        $entity = TakePaymentUseCase::create(new SimulatorPaymentService())->execute($entity);
 
         // TODO use card ID here
-        $paymentTracking = PaymentTracking::findLast(new Equals('ProviderPublicIdentifier', $entity->providerPublicIdentifier));
+        $paymentTracking = PaymentTracking::findLast(new Equals('ProviderIdentifier', $entity->providerIdentifier));
         verify($paymentTracking->CardLastFourDigits)->notEmpty();
         verify($paymentTracking->Status)->equals(PaymentTracking::STATUS_FAILED);
         verify($paymentTracking->FailedMessage)->notEmpty();

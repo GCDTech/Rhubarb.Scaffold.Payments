@@ -8,11 +8,13 @@ use Rhubarb\Crown\DateTime\RhubarbDateTime;
 use Rhubarb\Stem\Models\Model;
 use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlEnumColumn;
 use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlMediumTextColumn;
+use Rhubarb\Stem\Repositories\MySql\Schema\MySqlIndex;
 use Rhubarb\Stem\Schema\Columns\AutoIncrementColumn;
 use Rhubarb\Stem\Schema\Columns\DateTimeColumn;
 use Rhubarb\Stem\Schema\Columns\MoneyColumn;
 use Rhubarb\Stem\Schema\Columns\StringColumn;
 use Rhubarb\Stem\Schema\Columns\UUIDColumn;
+use Rhubarb\Stem\Schema\Index;
 use Rhubarb\Stem\Schema\ModelSchema;
 
 class PaymentTracking extends Model
@@ -53,7 +55,10 @@ class PaymentTracking extends Model
             new DateTimeColumn("LastUpdatedDate")
         );
 
+        $schema->uniqueIdentifierColumnName = "PaymentTrackingID";
         $schema->labelColumnName = "FullName";
+
+        $schema->addIndex(new MySqlIndex("PaymentTrackingID", MySqlIndex::UNIQUE));
 
         return $schema;
     }
@@ -93,7 +98,6 @@ class PaymentTracking extends Model
             "provider" => "Provider",
             "description" => "Description",
             "providerIdentifier" => "ProviderIdentifier",
-            "providerPublicIdentifier" => "PublicIdentifier",
             "providerPaymentMethodIdentifier" => "ProviderPaymentMethodIdentifier",
             "providerPaymentMethodType" => "ProviderPaymentMethodType",
             "emailAddress" => "EmailAddress",

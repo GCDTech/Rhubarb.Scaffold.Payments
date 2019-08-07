@@ -7,15 +7,12 @@ use Gcd\Scaffold\Payments\Logic\Services\PaymentService;
 use Gcd\Scaffold\Payments\UI\Entities\PaymentEntity;
 use Gcd\UseCases\UseCase;
 
-class RetrievePaymentEntityUseCase extends UseCase
+class RestartPaymentOnSessionUseCase extends UseCase
 {
-    public function execute($paymentTrackingId):PaymentEntity
+    public function execute(PaymentEntity $entity)
     {
-        $trackingModel = new PaymentTracking($paymentTrackingId);
-        $entity = $trackingModel->toEntity();
-
         $service = PaymentService::getPaymentServiceForAlias($entity->provider);
-        $entity = $service->rehydratePayment($entity);
+        $entity = $service->restartPaymentOnSession($entity);
 
         return $entity;
     }

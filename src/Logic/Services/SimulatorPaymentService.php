@@ -16,16 +16,18 @@ class SimulatorPaymentService extends PaymentService
        $entity->cardExpiry = '02/22';
        $entity->cardLastFourDigits = '4444';
        $entity->cardType = 'visa';
-       $entity->providerPublicIdentifier = 'pi_12345';
-       $entity->providerIdentifier = 'card_12345';
+       $entity->providerPublicIdentifier = uniqid();
+       $entity->providerIdentifier = uniqid();
+
+       return $entity;
     }
 
     public function confirmPayment(PaymentEntity $entity): PaymentEntity
     {
         $statusArray = [PaymentEntity::STATUS_FAILED, PaymentEntity::STATUS_SUCCESS];
 
-        if (!$entity->status == PaymentEntity::STATUS_AWAITING_SCA) {
-            array_push($statusArray, PaymentEntity::STATUS_AWAITING_SCA);
+        if (!$entity->status == PaymentEntity::STATUS_AWAITING_AUTHENTICATION) {
+            array_push($statusArray, PaymentEntity::STATUS_AWAITING_AUTHENTICATION);
         }
 
         $entity->status = $statusArray[array_rand($statusArray)];
@@ -34,7 +36,7 @@ class SimulatorPaymentService extends PaymentService
 
     public function refundPayment(PaymentEntity $entity): PaymentEntity
     {
-        $statusArray = [PaymentEntity::STATUS_AWAITING_SCA, PaymentEntity::STATUS_FAILED, PaymentEntity::STATUS_SUCCESS];
+        $statusArray = [PaymentEntity::STATUS_AWAITING_AUTHENTICATION, PaymentEntity::STATUS_FAILED, PaymentEntity::STATUS_SUCCESS];
 
         $entity->status = $statusArray[array_rand($statusArray)];
         return $entity;
@@ -42,7 +44,7 @@ class SimulatorPaymentService extends PaymentService
 
     public function settlePayment(PaymentEntity $entity): PaymentEntity
     {
-        $statusArray = [PaymentEntity::STATUS_AWAITING_SCA, PaymentEntity::STATUS_FAILED, PaymentEntity::STATUS_SUCCESS];
+        $statusArray = [PaymentEntity::STATUS_AWAITING_AUTHENTICATION, PaymentEntity::STATUS_FAILED, PaymentEntity::STATUS_SUCCESS];
 
         $entity->status = $statusArray[array_rand($statusArray)];
         return $entity;
@@ -50,6 +52,27 @@ class SimulatorPaymentService extends PaymentService
 
     public function syncPayment(PaymentEntity $entity): PaymentEntity
     {
+        return $entity;
+    }
+
+    public function getAlias(): string
+    {
+        return "Simulator";
+    }
+
+    /**
+     * An opportunity for a payment service to repopulate properties that aren't stored
+     * in the scaffold. For example Stripe do not allow you to store the public secret
+     * for a payment intent, however we must restore this to the entity in order for
+     * the follow on screen to be able to process the payment.
+     *
+     * @param PaymentEntity $entity
+     * @return PaymentEntity
+     */
+    public function rehydratePayment(PaymentEntity $entity): PaymentEntity
+    {
+        $entity->providerPublicIdentifier = "public_secret";
+
         return $entity;
     }
 }
