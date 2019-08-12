@@ -49,61 +49,86 @@ class PaymentFollowupView extends View
         }
 
         ?>
+        <div class="o-wrap u-pos-rel" style="height:100vh;">
+            <div class="u-fill-white u-pad--heavy u-rounded u-1/2@m u-pull-v-center u-shadow">
+                <div class="js-authenticate">
+                <?php print $this->printAuthenticateContent(); ?>
+                </div>
 
-        <div class="js-authenticate">
-        <?php print $this->printAuthenticateContent(); ?>
+                <div class="js-success" style="display:none;">
+                <?php print $this->printSuccessContent(); ?>
+                </div>
+
+                <div class="js-failed" style="display:none;">
+                <?php print $this->printFailedContent(); ?>
+                </div>
+            </div>
         </div>
-
-        <div class="js-success" style="display:none;">
-        <?php print $this->printSuccessContent(); ?>
-        </div>
-
-        <div class="js-failed" style="display:none;">
-        <?php print $this->printFailedContent(); ?>
-        </div>
-
         <?php print $this->leaves["Authentication"];
     }
 
     protected function printSuccessContent() {
         ?>
-        <h1>Success</h1>
-        <p>Thank you, your payment has been authorised.</p>
+        <div class="u-align-center">
+            <img src="../static/images/positive.svg" alt="" style="width:100px;">
+            <h1 class="u-delta">Thank you</h1>
+            <p class="u-lighten">Your payment has been authorised. <br />You can now close this window.</p>
+        </div>
         <?php
     }
 
     protected function printFailedContent() {
         ?>
-        <h1>Failure</h1>
-        <p>Sorry, we were unable to get an authorisation for your payment.</p>
+        <div class="u-align-center u-marg-bottom">
+            <img src="../static/images/negative.svg" alt="" style="width:100px;">
+            <h1 class="u-delta">Failure</h1>
+            <p class="u-lighten">Sorry, we were unable to get an authorisation for your payment.</p>
+        </div>
+        <div class="u-fill-white u-pad u-rounded u-shadow u-bordered u-marg-bottom">
+            <p class="u-bold">Possible reasons for failure</p>
+            <ul class="u-list-bullets u-lighten">
+                <li>3D Secure authorisation failure</li>
+                <li>Insufficient funds in account</li>
+                <li>Expired card</li>
+            </ul>
+        </div>
+        <p class="u-lighten u-align-center">Alternatively, you can <a href="" class="u-secondary"><u>use another card</u></a> as a payment
+            method</p>
         <?php
     }
 
     protected function printAuthenticateContent() {
         ?>
-        <h1>Continue your payment</h1>
-
-        <p>A payment authorisation was declined by your bank as they have requested you provide
-            authentication in order to authorise the payment.</p>
-
-        <table>
-            <tr>
-                <td>Amount</td>
-                <td><?=$this->model->paymentEntity->amount;?></td>
-            </tr>
-            <tr>
-                <td>Card</td>
-                <td><?=str_pad($this->model->paymentEntity->cardLastFourDigits, 16, '*',STR_PAD_LEFT);?></td>
-            </tr>
-            <tr>
-                <td>Expiry</td>
-                <td><?=$this->model->paymentEntity->cardExpiry;?></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><button class="js-continue">Continue and Authenticate</button></td>
-            </tr>
-        </table>
+        <div class="o-layout u-marg-bottom">
+            <div class="o-layout__item u-1/2@m u-marg-bottom">
+                <h1 class="u-delta">Continue your payment</h1>
+                <p class="u-marg-bottom u-lighten">A payment authorisation was declined by your bank as they have requested you provide
+                    authentication in order to authorise the payment.</p>
+            </div>
+            <div class="o-layout__item u-1/2@m u-marg-bottom">
+                <div class="u-border-light u-border-thick u-pad u-rounded u-shadow">
+                    <div class="u-marg-bottom">
+                        <label for="" class="u-uppercase u-milli u-lighten">Amount</label>
+                        <div class="u-border-bottom u-beta u-tertiary"><?= $this->model->paymentEntity->amount; ?>
+                            <?= $this->model->paymentEntity->currency; ?></div>
+                    </div>
+                    <div class="u-marg-bottom">
+                        <label for="" class="u-uppercase u-milli u-lighten">Card</label>
+                        <div class="u-border-bottom u-beta u-tertiary"><?= str_pad(
+                                $this->model->paymentEntity->cardLastFourDigits,
+                                16,
+                                '*',
+                                STR_PAD_LEFT
+                            ); ?></div>
+                    </div>
+                    <div class="u-marg-bottom">
+                        <label for="" class="u-uppercase u-milli u-lighten">Expiry</label>
+                        <div class="u-border-bottom u-beta u-tertiary"><?= $this->model->paymentEntity->cardExpiry; ?></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="js-continue c-button +secondary +large u-1 +processing">Continue and Authenticate</button>
         <?php
     }
 
