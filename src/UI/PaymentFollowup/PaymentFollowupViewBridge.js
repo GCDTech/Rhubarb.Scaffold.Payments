@@ -2,15 +2,18 @@ rhubarb.vb.create('PaymentFollowupViewBridge', function() {
     return {
         onReady:function() {
             this.viewNode.querySelector('.js-continue').addEventListener('click', function(event){
+                event.target.classList.add('+processing');
                 this.raiseServerEvent('startCustomerAuthentication',this.model.paymentEntity, function(paymentEntity){
                     if (paymentEntity.status == 'Awaiting Authentication'){
                         this.findChildViewBridge('Authentication').startCustomerAuthentication(paymentEntity)
                             .then(function(paymentEntity){
                                 this.raiseServerEvent('paymentAuthenticated', paymentEntity, function(){
+                                    event.target.classList.remove('+processing');
                                    this.onPaymentAuthenticated();
                                 }.bind(this));
                             }.bind(this),
                             function(){
+                                event.target.classList.remove('+processing');
                                 this.onPaymentFailed(paymentEntity);
                             }.bind(this));
                     }

@@ -128,7 +128,7 @@ class PaymentFollowupView extends View
                 </div>
             </div>
         </div>
-        <button class="js-continue c-button +secondary +large u-1 +processing">Continue and Authenticate</button>
+        <button class="js-continue c-button +secondary +large u-1">Continue and Authenticate</button>
         <?php
     }
 
