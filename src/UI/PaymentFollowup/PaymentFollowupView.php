@@ -49,42 +49,62 @@ class PaymentFollowupView extends View
         }
 
         ?>
-        <div class="js-authenticate">
-            <h1>Continue your payment</h1>
 
-            <p>A payment authorisation was declined by your bank as they have requested you provide
+        <div class="js-authenticate">
+        <?php print $this->printAuthenticateContent(); ?>
+        </div>
+
+        <div class="js-success" style="display:none;">
+        <?php print $this->printSuccessContent(); ?>
+        </div>
+
+        <div class="js-failed" style="display:none;">
+        <?php print $this->printFailedContent(); ?>
+        </div>
+
+        <?php print $this->leaves["Authentication"];
+    }
+
+    protected function printSuccessContent() {
+        ?>
+        <h1>Success</h1>
+        <p>Thank you, your payment has been authorised.</p>
+        <?php
+    }
+
+    protected function printFailedContent() {
+        ?>
+        <h1>Failure</h1>
+        <p>Sorry, we were unable to get an authorisation for your payment.</p>
+        <?php
+    }
+
+    protected function printAuthenticateContent() {
+        ?>
+        <h1>Continue your payment</h1>
+
+        <p>A payment authorisation was declined by your bank as they have requested you provide
             authentication in order to authorise the payment.</p>
 
-            <table>
-                <tr>
-                    <td>Amount</td>
-                    <td><?=$this->model->paymentEntity->amount;?></td>
-                </tr>
-                <tr>
-                    <td>Card</td>
-                    <td><?=str_pad($this->model->paymentEntity->cardLastFourDigits, 16, '*',STR_PAD_LEFT);?></td>
-                </tr>
-                <tr>
-                    <td>Expiry</td>
-                    <td><?=$this->model->paymentEntity->cardExpiry;?></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><button class="js-continue">Continue and Authenticate</button></td>
-                </tr>
-            </table>
-        </div>
-        <div class="js-success" style="display:none;">
-            <h1>Success</h1>
-            <p>Thank you, your payment has been authorised.</p>
-        </div>
-        <div class="js-failed" style="display:none;">
-            <h1>Failure</h1>
-            <p>Sorry, we were unable to get an authorisation for your payment.</p>
-        </div>
+        <table>
+            <tr>
+                <td>Amount</td>
+                <td><?=$this->model->paymentEntity->amount;?></td>
+            </tr>
+            <tr>
+                <td>Card</td>
+                <td><?=str_pad($this->model->paymentEntity->cardLastFourDigits, 16, '*',STR_PAD_LEFT);?></td>
+            </tr>
+            <tr>
+                <td>Expiry</td>
+                <td><?=$this->model->paymentEntity->cardExpiry;?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button class="js-continue">Continue and Authenticate</button></td>
+            </tr>
+        </table>
         <?php
-
-        print $this->leaves["Authentication"];
     }
 
     public function getDeploymentPackage()
