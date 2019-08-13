@@ -52,7 +52,7 @@ class PaymentTracking extends Model
             new StringColumn("CardExpiry", 10),
             new StringColumn("FailureMessage", 250),
             new DateTimeColumn("CreationDate"),
-            new DateTimeColumn("AuthorisationSentDate")
+            new DateTimeColumn("LastUpdatedDate")
         );
 
         $schema->uniqueIdentifierColumnName = "PaymentTrackingID";
