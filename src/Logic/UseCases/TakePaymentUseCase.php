@@ -46,6 +46,8 @@ class TakePaymentUseCase extends UseCase
         $paymentTracking->Provider = $this->paymentService->getAlias();
         $paymentTracking->save();
 
+        $paymentEntity->id = $paymentTracking->getUniqueIdentifier();
+
         return $paymentEntity;
     }
 
