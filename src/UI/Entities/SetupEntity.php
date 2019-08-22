@@ -43,7 +43,9 @@ class SetupEntity implements \JsonSerializable
 
     public $cardLastFourDigits;
 
-    public $cardExpiry;
+    public $cardExpiryMonth;
+
+    public $cardExpiryYear;
 
     /**
      * The last error during processing.

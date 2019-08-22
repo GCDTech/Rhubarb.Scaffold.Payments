@@ -11,6 +11,7 @@ use Rhubarb\Stem\Repositories\MySql\Schema\Columns\MySqlMediumTextColumn;
 use Rhubarb\Stem\Repositories\MySql\Schema\MySqlIndex;
 use Rhubarb\Stem\Schema\Columns\AutoIncrementColumn;
 use Rhubarb\Stem\Schema\Columns\DateTimeColumn;
+use Rhubarb\Stem\Schema\Columns\JsonColumn;
 use Rhubarb\Stem\Schema\Columns\MoneyColumn;
 use Rhubarb\Stem\Schema\Columns\StringColumn;
 use Rhubarb\Stem\Schema\Columns\UUIDColumn;
@@ -51,6 +52,8 @@ class PaymentTracking extends Model
             new StringColumn("CardLastFourDigits", 4),
             new StringColumn("CardExpiry", 10),
             new StringColumn("FailureMessage", 250),
+            new JsonColumn("MetaData", 250),
+            new StringColumn("ProviderChargeIdentifier", 150),
             new DateTimeColumn("CreationDate"),
             new DateTimeColumn("LastUpdatedDate")
         );
@@ -108,6 +111,8 @@ class PaymentTracking extends Model
             "cardLastFourDigits" => "CardLastFourDigits",
             "cardExpiry" => "CardExpiry",
             "error" => "FailureMessage",
+            "metaData" => "MetaData",
+            "providerChargeIdentifier" => "ProviderChargeIdentifier"
         ];
     }
 }

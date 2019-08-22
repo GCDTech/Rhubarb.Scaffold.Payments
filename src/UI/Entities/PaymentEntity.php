@@ -14,9 +14,9 @@ class PaymentEntity implements \JsonSerializable
     const STATUS_FAILED = "Failed";
     const STATUS_AWAITING_AUTHENTICATION = "Awaiting Authentication";
 
-    const TYPE_TOKEN = "Token";
-    const TYPE_CARD = "Card";
-    const TYPE_CUSTOMER = "Customer";
+    const TYPE_TOKEN = "token";
+    const TYPE_CARD = "card";
+    const TYPE_CUSTOMER = "customer";
 
     public $id;
 
@@ -38,7 +38,7 @@ class PaymentEntity implements \JsonSerializable
     /**
      * @var string The type of identifier for this payment i.e. Token, Card, Customer
      */
-    public $providerPaymentMethodType = self::TYPE_TOKEN;
+    public $providerPaymentMethodType;
 
     /**
      * @var string Some providers give an identifier for use in SCA completion journeys
@@ -89,7 +89,15 @@ class PaymentEntity implements \JsonSerializable
 
     public $cardLastFourDigits;
 
-    public $cardExpiry;
+    public $cardExpiryMonth;
+
+    public $cardExpiryYear;
+
+    public $metaData;
+
+    public $providerChargeIdentifier;
+
+    public $isMOTO = false;
 
     /**
      * The last error during processing.

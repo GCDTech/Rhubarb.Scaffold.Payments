@@ -13,7 +13,8 @@ class SimulatorPaymentService extends PaymentService
 
     public function startPayment(PaymentEntity $entity): PaymentEntity
     {
-       $entity->cardExpiry = '02/22';
+       $entity->cardExpiryMonth = 2;
+       $entity->cardExpiryYear = 2022;
        $entity->cardLastFourDigits = '4444';
        $entity->cardType = 'visa';
        $entity->providerPublicIdentifier = uniqid();
